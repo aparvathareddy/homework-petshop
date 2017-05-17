@@ -13,6 +13,10 @@ Root level will have the following directories and files:
 
 **docs**          - index.html under this folder will represent in detail class declarations
 
+**pseudo**        - Contains pseudo files provided initially
+
+**sql**           - sql file of the project database
+
 **src**           - Core classes required for this project
 
 **tests**         - Test cases for the classes, can be run with phpUnit
@@ -21,6 +25,11 @@ Root level will have the following directories and files:
 
 **vendor**        - Any third party tools to support Namespaces, phpUnit, documentation etc.
 
+**composer.json** - To download require packages for Unit tests, Documentation, Namespace support etc.
+
+**homework.docx** - Initially provided document outlining the project and tasks
+
+**Readme.md**     - README file, outlines the overview of the project
 
 
 ## Installation
@@ -70,7 +79,7 @@ What - Created own light weight logger class to log information only untill scri
 
 Why - Since it is a micro project to zip and send, I prefer to keep it simple just to demonstrate the concept rather than having bulky logger package.
 
-Ways - Alternatively, we have lot of open source logger packages available which can store right from execution information, db queries, execution times, statistics and much more which are helpful in performance tuining too. Ex: phpdebugbar
+Ways - Alternatively, we have lot of open source logger packages available which can store right from execution information, db queries, execution times, statistics and much more which are helpful in performance tuining too. Ex: monolog, phpdebugbar
 
 ### Database
 
@@ -80,13 +89,12 @@ Why - Since we are not actually inserting the objects here and the categories ar
 
 Ways - Alternatively, we can have split the animals table to add 2 more tables where in the animal type can be a different table and its id will be a foreign key to the animals table instead of storing string in type field of animals table. Also, previous names can be a seperate table to store rather than saving the array in JSON encoded string. These changes can be performed based on the timeline and scope to further additions.
 
-### 
+### Test Cases
 
 What - Used PHPUnit framework
 
 Why - To execute and verify the test cases, PHPUnit framework is downloaded form composer
 
 Ways - I could have written my own test class to assert the results, again it depends on the timeline of the project.
-
 
 
