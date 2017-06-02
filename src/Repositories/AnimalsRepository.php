@@ -1,0 +1,77 @@
+<?php
+
+namespace PetShop\Repositories;
+
+use PetShop\Repositories\Interfaces\iAnimalsRepository;
+use PetShop\Models\Data;
+use PetShop\Logger;
+
+class AnimalsRepository implements iAnimalsRepository
+{
+    private $db;
+    const ANIMALS_TABLE = 'animals';
+
+    function __construct()
+    {
+        $this->db = Data::getInstance('apple');
+    }
+
+    public function insert(array $animals)
+    {
+        $insertStartTime = microtime(true);
+        $count = count($animals);
+        Logger::log('Inserting Animals');
+        if (!$count) {
+            Logger::log('Nothing to insert as animals array is empty');
+            return false;
+        }
+        Logger::log('Trying to add ' . $count . ' Animal(s) to Database');
+        $this->db->beginTran();
+        $rollback = false;
+
+        foreach ($animals as $animal) {
+
+            // Check if the object doesn't belongs to PetShop\Animal Or insert is not successful
+            if (is_subclass_of($animal, 'PetShop\Animal')) {
+
+                try {
+                    // store class name as type of animal
+                    $animal->type = (new \ReflectionClass($animal))->getShortName();
+                    //store previous names as json encoded array
+                    $animal->previousNames = json_encode($animal->getNames());
+
+                    $this->db->insert(self::ANIMALS_TABLE, $animal);
+
+                } catch (Exception $e) {
+                    $this->db->rollback();
+                    // log exception OR roll back and throw new exception
+                }
+                
+                
+                
+            } else {
+                $this->db->rollback();
+                return false;
+            }
+            
+        }
+        $insertEndTime = microtime(true);
+        $time = Logger::getExecutionTime($insertStartTime, $insertEndTime);
+        Logger::log('Total time to insert ' . $count . ' record(s): ' . $time . ' milli seconds');
+        $this->db->commit();
+        return true;
+    }
+
+
+
+    public function getById($id)
+    {
+
+    }
+
+    public function getAll()
+    {
+
+    }
+
+}
