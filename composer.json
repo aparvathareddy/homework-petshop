@@ -1,0 +1,22 @@
+{
+    "name": "homework/petshop",
+    "description": "Homework assignment to assess coding skills",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^5.7",
+        "phpdocumentor/phpdocumentor":"2.*"
+    },
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Ashok Parvathareddy",
+            "email": "ashok.parvathareddy@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+        	"PetShop\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

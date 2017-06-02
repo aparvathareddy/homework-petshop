@@ -1,0 +1,43 @@
+<?php
+namespace PetShop;
+use PetShop\Animal;
+
+/**
+ * Class Cat
+ *
+ * Cat class inherits its characteristics from Animal class. It is capable of initiating the Cat with a random age set
+ * Cat can be without name or a name can be set at the time of initiation. It is capable of speaking too.
+ *
+ * @package petShop
+ */
+class Cat extends Animal
+{
+
+    /**
+     * @var string
+     */
+    private $iSpeak = 'meow';
+
+    /**
+     * This method speaks the text if provided as argument or it will get the sound from iSpeak property
+     * This will also increment the age of animal at certain speaks
+     *
+     * @param null $say
+     * @return string
+     */
+    public function speak($say = null){
+        $this->totalSpeaks++;
+        if($this->isElegibleToIncreaseAge()){
+            $this->age++;
+        }
+        return is_null($say) ? $this->iSpeak : $say;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isElegibleToIncreaseAge() {
+
+        return ($this->totalSpeaks % self::INCREMENT_AGE_ON_SPEAKS == 0);
+    }
+}
